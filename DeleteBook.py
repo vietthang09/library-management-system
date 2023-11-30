@@ -1,12 +1,7 @@
 import customtkinter
-import tkinter
 from database import LMS
 from tkinter.messagebox import showerror, showinfo
-import os
-import sys
-
-db = LMS("lms.db")
-
+db = LMS()
 class DeleteBook(customtkinter.CTkToplevel):
     def __init__(self, master=None):
         super().__init__(master)

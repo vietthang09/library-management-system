@@ -77,14 +77,6 @@ class LMSApp(customtkinter.CTk):
         app = ReturnBook(self)
         app.focus()
     
-    def book_report_win(self):
-        app = BookReport(self)
-        app.focus()
-    
-    def settings_win(self):
-        app = Setting(self)
-        app.focus()
-    
     def import_student(self):
         try:
             filetypes = (

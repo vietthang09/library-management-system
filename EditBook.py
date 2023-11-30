@@ -1,12 +1,9 @@
 import customtkinter
-import tkinter
 from database import LMS
 from tkinter.messagebox import showerror, showwarning, showinfo
 from tkcalendar import DateEntry
-import os
-import sys
 
-db = LMS("lms.db")
+db = LMS()
 
 class EditBook(customtkinter.CTkToplevel):
     def __init__(self, master=None):

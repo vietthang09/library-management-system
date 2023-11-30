@@ -4,15 +4,8 @@ from database import LMS
 from tkinter.messagebox import showerror, showinfo
 from tkinter import ttk
 import datetime
-import json
-import os
-import sys
 
-db = LMS("lms.db")
-
-settings_file_path = os.path.join(os.path.dirname(sys.executable), 'settings.json')
-with open(settings_file_path, "r") as settings_file:
-    settings = json.load(settings_file)
+db = LMS()
 
 class IssueBook(customtkinter.CTkToplevel):
     def __init__(self, master=None):
@@ -21,7 +14,7 @@ class IssueBook(customtkinter.CTkToplevel):
         self.minsize(400,250)
         self.maxsize(400,250)
         self.geometry('300x250')
-        self.no_expiry_days = settings["issue_duration"]
+        # self.no_expiry_days = settings["issue_duration"]
         
         heading_frame = customtkinter.CTkFrame(master=self,corner_radius=10)
         heading_frame.pack(padx=10,pady=10, ipadx=20, ipady=5,fill="x",anchor="n")
@@ -53,9 +46,9 @@ class IssueBook(customtkinter.CTkToplevel):
     
     def issue_book(self):
         book_id = self.book_id_var.get()
-        book_id = int(book_id)
+        # book_id = int(book_id)
         student_id = self.student_id_var.get()
-        student_id = int(student_id)
+        # student_id = int(student_id)
         
         if book_id in self.all_book_id() and student_id in self.all_student_id():
             status = 'available'
@@ -82,15 +75,11 @@ class IssueBook(customtkinter.CTkToplevel):
             showerror(title="Not Found",message="Book not found! or Student Not found! Please Check Book ID or Student ID and try again...")
         
     def all_book_id(self):
-        all_bookID = []
-        for i in db.all_book_id():
-            all_bookID.append(i[0])
+        all_bookID = db.all_book_id()
         return all_bookID
     
     def all_student_id(self):
-        all_studentID = []
-        for i in db.all_student_id():
-            all_studentID.append(i[0])
+        all_studentID = db.all_student_id()
         return all_studentID
     
     def expiry_datetime(self):

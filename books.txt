@@ -1,13 +1,10 @@
-1,   Kill a Mockingbird,  Harper Lee,  First Edition,  $24.99,  2023-10-04, 
-2, The Lord of the Rings,J.R.R. Tolkien,Third Edition,$49.99,2023-11-15,Available
-3, Pride and Prejudice,Jane Austen,Annotated Edition,$29.99,2023-08-22,Available
-4, The Catcher in the Rye,J.D. Salinger,Classic Edition,$19.99,2023-09-12,Available
-5, Harry Potter and the Sorcerer's Stone,J.K. Rowling,Paperback Edition,$14.99,2023-07-01,Available
-6,1984,George Orwell,Paperback Edition,$17.99,2023-06-05,Available
-7,The Great Gatsby,F. Scott Fitzgerald,Vintage Edition,$22.99,2023-05-03,Available
-8,The Adventures of Sherlock Holmes,Arthur Conan Doyle,Illustrated Edition,$34.99,2023-04-07,Available
-9,The Hitchhiker's Guide to the Galaxy,Douglas Adams,Collector's Edition,$39.99,2023-03-01,Available
-10,Animal Farm,George Orwell,Paperback Edition,$16.99,2023-02-14,Available
-11, aafs, asfaf, aadgsas, 141, 11/29/23, Available
-12,asfaf,asfasf,afag1,1,11/29/23,Available
-13,dadfaf,afasfasf,afa,1,11/29/23,Available
+1,Kill a Mockingbird,Harper Lee,First Edition,$24.99,2023-10-04,available
+2, The Lord of the Rings,J.R.R. Tolkien,Third Edition,$49.99,2023-11-15,available
+3, Pride and Prejudice,Jane Austen,Annotated Edition,$29.99,2023-08-22,available
+4, The Catcher in the Rye,J.D. Salinger,Classic Edition,$19.99,2023-09-12,available
+5, Harry Potter and the Sorcerer's Stone,J.K. Rowling,Paperback Edition,$14.99,2023-07-01,available
+6,1984,George Orwell,Paperback Edition,$17.99,2023-06-05,available
+7,The Great Gatsby,F. Scott Fitzgerald,Vintage Edition,$22.99,2023-05-03,available
+8,The Adventures of Sherlock Holmes,Arthur Conan Doyle,Illustrated Edition,$34.99,2023-04-07,available
+9,The Hitchhiker's Guide to the Galaxy,Douglas Adams,Collector's Edition,$39.99,2023-03-01,available
+10,Animal Farm,George Orwell,Paperback Edition,$16.99,2023-02-14,available

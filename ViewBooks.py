@@ -4,10 +4,8 @@ from tkinter import ttk
 from database import LMS
 from tkinter.messagebox import showinfo
 import datetime
-import os
-import sys
 
-db = LMS("lms.db")
+db = LMS()
 
 
 class ViewBooks(customtkinter.CTkToplevel):

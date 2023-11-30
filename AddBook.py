@@ -3,9 +3,7 @@ from database import LMS
 from tkinter.messagebox import showerror, showwarning, showinfo
 from tkcalendar import DateEntry
 import datetime
-
-db = LMS("lms.db")
-
+db = LMS()
 class AddBook(customtkinter.CTkToplevel):
     def __init__(self, master=None):
         super().__init__(master)

@@ -1,17 +1,9 @@
 import customtkinter
-import tkinter
 from database import LMS
 from tkinter.messagebox import showerror, showinfo, askyesno
 import datetime
-import json
-import os
-import sys
 
-db = LMS("lms.db")
-
-settings_file_path = os.path.join(os.path.dirname(sys.executable), 'settings.json')
-with open(settings_file_path, "r") as settings_file:
-    settings = json.load(settings_file)
+db = LMS()
 
 class ReturnBook(customtkinter.CTkToplevel):
     def __init__(self, master=None):
@@ -20,7 +12,7 @@ class ReturnBook(customtkinter.CTkToplevel):
         self.minsize(400,250)
         self.maxsize(400,250)
         self.geometry('400x250')
-        self.charge_per_day = settings["charge_per_day"]
+        # self.charge_per_day = settings["charge_per_day"]
         
         heading_frame = customtkinter.CTkFrame(master=self,corner_radius=10)
         heading_frame.pack(padx=10,pady=10, ipadx=20, ipady=5,fill="x",anchor="n")

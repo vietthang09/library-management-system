@@ -1,21 +1,10 @@
-import sqlite3
 import openpyxl
 import pandas as pd
 
 class LMS:
-    def __init__(self, db):
-        self.conn = sqlite3.connect(db)
-        self.cur = self.conn.cursor()
-    
     def add_new_book(self, data):
-        """
-        Add a new book into the books table
-        :param self:
-        :param data: list with book details
-        :return: book id
-        """
         with open('books.txt', 'a') as f:
-            new_book_data = '\n' + data[0] + "," + data[1] + "," + data[2] + "," + data[3] + "," + data[4] + "," + data[5] + ",Available"
+            new_book_data = '\n' + data[0] + "," + data[1] + "," + data[2] + "," + data[3] + "," + data[4] + "," + data[5] + ",available"
             f.write(new_book_data)
         return True
     
@@ -24,38 +13,25 @@ class LMS:
         wb = openpyxl.load_workbook(xl_file)
         sheet = wb['Sheet1']
         for row in sheet.rows:
-            dt = [cell.value for cell in row]
-            sql = '''INSERT INTO student (id,name,class)
-            VALUES(?,?,?) '''
-            self.cur.execute(sql, dt)
-        self.conn.commit()
-        return self.cur.lastrowid
+            data = [cell.value for cell in row]
+            new_book_data = str(data[0]) + "," + data[1] + "," + data[2] + '\n'
+            with open('students.txt', 'a') as f:
+                f.write(new_book_data)
+        return True
     
     
     def delete_book(self, book_id):
-        """
-        Delete a book by book id
-        :param self:
-        :param book_id: id of book
-        :return error or deleted
-        """
         with open('books.txt', 'r') as f:
             lines = f.readlines()
 
         for i, line in enumerate(lines):
             if line.strip().split(',')[0] == str(book_id):
                 del lines[i]
-        print(lines)
         with open('books.txt', 'w') as f:
             f.writelines(lines)
         return "deleted"
     
     def view_book_list(self):
-        """
-        Query all book rows in the books table
-        :param self:
-        :return: all book list
-        """
         with open('books.txt', 'r') as f:
             data = f.read()
             lines = data.splitlines()
@@ -78,11 +54,6 @@ class LMS:
         return self.cur.fetchone()
     
     def all_book_id(self):
-        """
-        Query all book id in the books table
-        :param self:
-        :return: all available book id list
-        """
         book_ids = []
         with open('books.txt', 'r') as f:
             for line in f:
@@ -92,21 +63,15 @@ class LMS:
         return book_ids
     
     def all_student_id(self):
-        """
-        Query all student id in the student table
-        :param self:
-        :return: all available student id list
-        """
-        self.cur.execute("SELECT id FROM student")
-        return self.cur.fetchall()
+        student_ids = []
+        with open('students.txt', 'r') as f:
+            for line in f:
+                student_data = line.strip().split(',')
+                student_id = student_data[0]
+                student_ids.append(student_id)
+        return student_ids
     
     def issue_book(self,data):
-        """
-        Issue a new book into the issued_book table
-        :param self:
-        :param data: list with issue book details
-        :return: book id
-        """
         sql = '''INSERT INTO issued_book (book_id,issued_to,issued_on,expired_on)
             VALUES(?,?,?,?) '''
         self.cur.execute(sql, data)
@@ -123,21 +88,10 @@ class LMS:
             return "error"
     
     def all_issued_book_id(self):
-        """
-        Query all issued book id in the issued book table
-        :param self:
-        :return: all issued book id list
-        """
         self.cur.execute("SELECT book_id FROM issued_book WHERE is_miscellaneous = ?",(0,))
         return self.cur.fetchall()
     
     def return_book(self,book_id):
-        """
-        Return the book which issued by id
-        :param self:
-        :param book_id: id of book
-        :return error or returned
-        """
         try:
             sql = 'DELETE FROM issued_book WHERE book_id=?'
             self.cur.execute(sql, (book_id,))
@@ -147,26 +101,17 @@ class LMS:
             return "error"
     
     def update_book_status(self,book_id,status):
-        """
-        update book status of a book
-        :param conn:
-        :param book_id: id of book
-        :param status: status of book
-        :return:
-        """
         sql = '''UPDATE books SET status = ? WHERE book_id = ?'''
         self.cur.execute(sql,(status,book_id,))
         self.conn.commit()
     
     def select_book_status(self,book_id):
-        """
-        Query book status by book_id
-        :param self:
-        :param book_id:
-        :return: book status
-        """
-        self.cur.execute("SELECT status FROM books WHERE book_id=?", (book_id,))
-        return self.cur.fetchone()
+        with open('books.txt', 'r') as f:
+            lines = f.readlines()
+
+        for i, line in enumerate(lines):
+            if line.strip().split(',')[0] == str(book_id):
+                return line.strip().split(',')[6]
     
     def select_issued_book_det(self,book_id):
         self.cur.execute("SELECT * FROM issued_book WHERE book_id=?", (book_id,))
