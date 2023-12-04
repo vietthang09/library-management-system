@@ -1,12 +1,12 @@
 import customtkinter
 from tkinter import filedialog
 
-from AddBook import *
-from EditBook import *
-from DeleteBook import *
-from ViewBooks import *
-from IssueBook import *
-from ReturnBook import *
+
+from view.AddBook  import AddBook
+from view.DeleteBook import DeleteBook
+from view.ViewBooks import ViewBooks
+from view.EditBook import EditBook
+# from view import ReturnBook
 
 class LMSApp(customtkinter.CTk):
     def __init__(self):

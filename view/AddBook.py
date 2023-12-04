@@ -1,9 +1,10 @@
 import customtkinter
-from database import LMS
+from controllers.BookController import BookController
 from tkinter.messagebox import showerror, showwarning, showinfo
 from tkcalendar import DateEntry
 import datetime
-db = LMS()
+from models.Book import Book
+controller = BookController("assets/data/books.txt")
 class AddBook(customtkinter.CTkToplevel):
     def __init__(self, master=None):
         super().__init__(master)
@@ -74,7 +75,7 @@ class AddBook(customtkinter.CTkToplevel):
         book_price = self.book_price_input.get()
         purchase_dt = self.purch_dt_var.get()
         if book_id != "" and book_nme != "" and book_author != "" and book_edition != "" and book_price != "" and purchase_dt != "":
-            data = (
+            book = Book(
                 book_id,
                 book_nme,
                 book_author,
@@ -84,7 +85,7 @@ class AddBook(customtkinter.CTkToplevel):
                 "available"
             )
             
-            res = db.add_new_book(data)
+            res = controller.add_new_book(book)
             if res != None or res != '':
                 self.book_id_input.delete(0,'end')
                 self.book_nme_input.delete(0,'end')

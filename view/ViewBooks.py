@@ -1,11 +1,11 @@
 import customtkinter
 import tkinter
 from tkinter import ttk
-from database import LMS
+from controllers.BookController import BookController
 from tkinter.messagebox import showinfo
 import datetime
 
-db = LMS()
+controller = BookController("assets/data/books.txt")
 
 
 class ViewBooks(customtkinter.CTkToplevel):
@@ -49,9 +49,9 @@ class ViewBooks(customtkinter.CTkToplevel):
         scrollbar.grid(row=0,column=1,sticky='ns')
 
     def load_book_data(self):
-        book_list = db.view_book_list()
-        for i in book_list:
-            self.tree.insert('', tkinter.END, values=i)
+        book_list = controller.view_book_list()
+        for book in book_list:
+            self.tree.insert('', tkinter.END, values=(book.book_id, book.title, book.author, book.edition, book.price, book.purchase_date, book.status))
     
     def item_selected(self,event):
         for selected_item in self.tree.selection():
@@ -125,8 +125,8 @@ class ViewBooks(customtkinter.CTkToplevel):
             sec_frame = customtkinter.CTkFrame(master=window,corner_radius=10)
             sec_frame.pack(padx=10,pady=10, ipadx=5, ipady=5,fill="both",expand=True)
             
-            isu_book_dtail = db.view_issued_book(record[0])
-            stu_detail = db.view_student(isu_book_dtail[1])
+            isu_book_dtail = controller.view_issued_book(record[0])
+            stu_detail = controller.view_student(isu_book_dtail[1])
             
             l1 = customtkinter.CTkLabel(master=sec_frame,text="Student ID :",font=customtkinter.CTkFont(family="Verdana", size=25, weight="normal"))
             l1.grid(column=0,row=1,padx=5, pady=5,sticky='e')

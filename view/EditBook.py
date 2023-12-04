@@ -1,9 +1,10 @@
 import customtkinter
-from database import LMS
+from controllers.BookController import BookController
 from tkinter.messagebox import showerror, showwarning, showinfo
 from tkcalendar import DateEntry
+from models.Book import Book
 
-db = LMS()
+controller = BookController("assets/data/books.txt")
 
 class EditBook(customtkinter.CTkToplevel):
     def __init__(self, master=None):
@@ -85,14 +86,15 @@ class EditBook(customtkinter.CTkToplevel):
     def search_book_detail(self):
         book_id = self.book_id_input1.get()
         book_id = int(book_id)
-        book_details = db.select_book_detail(book_id)
+        global book_details
+        book_details = controller.select_book_detail(book_id)
         if book_details != None:
-            self.id_var.set(book_details[0])
-            self.name_var.set(book_details[1])
-            self.author_var.set(book_details[2])
-            self.edition_var.set(book_details[3])
-            self.price_var.set(book_details[4])
-            self.purchase_dt_var.set(book_details[5])
+            self.id_var.set(book_details.book_id)
+            self.name_var.set(book_details.title)
+            self.author_var.set(book_details.author)
+            self.edition_var.set(book_details.edition)
+            self.price_var.set(book_details.price)
+            self.purchase_dt_var.set(book_details.purchase_date)
             self.main_frame.pack(padx=10,pady=10, ipadx=5, ipady=5,fill="both",expand=True)
         else:
             showerror(title="Not Found", message="Book Not Found")
@@ -106,16 +108,17 @@ class EditBook(customtkinter.CTkToplevel):
         book_price = self.price_var.get()
         purchase_dt = self.purchase_dt_var.get()
         if book_id != "" and book_nme != "" and book_author != "" and book_edition != "" and book_price != "" and purchase_dt != "":
-            data = (
+            updated_book = Book(
                 book_id,
                 book_nme,
                 book_author,
                 book_edition,
                 book_price,
                 purchase_dt,
+                book_details.status
             )
             
-            res = db.update_book_details(book_id, data)
+            res = controller.update_book_details(book_id, updated_book)
             if res != None or res != '':
                 showinfo(title="Saved",message="Book updated successfully.")
             else:

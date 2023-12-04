@@ -1,7 +1,7 @@
 import customtkinter
-from database import LMS
+from controllers.BookController import BookController
 from tkinter.messagebox import showerror, showinfo
-db = LMS()
+controller = BookController("assets/data/books.txt")
 class DeleteBook(customtkinter.CTkToplevel):
     def __init__(self, master=None):
         super().__init__(master)
@@ -29,9 +29,9 @@ class DeleteBook(customtkinter.CTkToplevel):
         delete_book_btn.pack(padx=10,pady=10)
     
     def delete_book(self):
-        id_lists = db.all_book_id()
+        id_lists = controller.all_book_id()
         if str(self.book_id_input.get()) in id_lists:
-            res = db.delete_book(self.book_id_input.get())
+            res = controller.delete_book(self.book_id_input.get())
             if res == 'deleted':
                 showinfo(title="Deleted",message=f"Book ID : {self.book_id_input.get()}, deleted successfully.")
                 self.book_id_input.delete(0,'end')
