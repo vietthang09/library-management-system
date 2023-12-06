@@ -4,7 +4,7 @@ from tkinter.messagebox import showerror, showwarning, showinfo
 from tkcalendar import DateEntry
 import datetime
 from models.Book import Book
-controller = BookController("assets/data/books.txt")
+controller = BookController("assets/data/books.csv")
 class AddBook(customtkinter.CTkToplevel):
     def __init__(self, master=None):
         super().__init__(master)

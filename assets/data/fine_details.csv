@@ -1,0 +1,2 @@
+book_id,student_id,issued_on,returned_date,total_fine,no_of_day
+1,1,2023-12-06 11:00:02,125,25

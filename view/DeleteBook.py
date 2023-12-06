@@ -1,7 +1,7 @@
 import customtkinter
 from controllers.BookController import BookController
 from tkinter.messagebox import showerror, showinfo
-controller = BookController("assets/data/books.txt")
+controller = BookController("assets/data/books.csv")
 class DeleteBook(customtkinter.CTkToplevel):
     def __init__(self, master=None):
         super().__init__(master)
@@ -31,11 +31,7 @@ class DeleteBook(customtkinter.CTkToplevel):
     def delete_book(self):
         id_lists = controller.all_book_id()
         if str(self.book_id_input.get()) in id_lists:
-            res = controller.delete_book(self.book_id_input.get())
-            if res == 'deleted':
-                showinfo(title="Deleted",message=f"Book ID : {self.book_id_input.get()}, deleted successfully.")
-                self.book_id_input.delete(0,'end')
-            else:
-                showerror(title="Error",message=f"Book ID : {self.book_id_input.get()}, not deleted. Try Again!")
+            controller.delete_book(int(self.book_id_input.get()))
+            showinfo(title="Deleted",message=f"Book ID : {self.book_id_input.get()}, deleted successfully.")
         else:
             showerror(title="Not Found",message="Book not found")

@@ -1,11 +1,18 @@
 import customtkinter
-import tkinter
-from database import LMS
 from tkinter.messagebox import showerror, showinfo
-from tkinter import ttk
 import datetime
 
-db = LMS()
+# models
+from models.IssuedBook import IssuedBook
+
+# controllers
+from controllers.IssuedBookController import IssuedBookController
+from controllers.StudentController import StudentController
+from controllers.BookController import BookController
+
+issued_book_controller = IssuedBookController("assets/data/issued_book.csv")
+students_controller = StudentController("assets/data/students.csv")
+books_controller = BookController("assets/data/books.csv")
 
 class IssueBook(customtkinter.CTkToplevel):
     def __init__(self, master=None):
@@ -14,7 +21,7 @@ class IssueBook(customtkinter.CTkToplevel):
         self.minsize(400,250)
         self.maxsize(400,250)
         self.geometry('300x250')
-        # self.no_expiry_days = settings["issue_duration"]
+        self.no_expiry_days = 5
         
         heading_frame = customtkinter.CTkFrame(master=self,corner_radius=10)
         heading_frame.pack(padx=10,pady=10, ipadx=20, ipady=5,fill="x",anchor="n")
@@ -46,40 +53,28 @@ class IssueBook(customtkinter.CTkToplevel):
     
     def issue_book(self):
         book_id = self.book_id_var.get()
-        # book_id = int(book_id)
+        book_id = int(book_id)
         student_id = self.student_id_var.get()
-        # student_id = int(student_id)
-        
         if book_id in self.all_book_id() and student_id in self.all_student_id():
             status = 'available'
-            if status in db.select_book_status(book_id):
+            if status in books_controller.select_book_status(book_id):
                 cur_dt = datetime.datetime.now()
                 std_cur_dt = cur_dt.isoformat(' ', 'seconds')
-                data = (
-                    book_id,
-                    student_id,
-                    std_cur_dt,
-                    self.expiry_datetime()
-                    )
-                
-                res1 = db.issue_book(data)
-                res2 = db.update_book_status(book_id,"issued")
-                
-                if res1 != None:
-                    showinfo(title="Issued",message=f"Book issued successfully to {student_id}")
-                else:
-                    showerror(title="Error",message="Something went wrong! Try Again..")
+                issued_book = IssuedBook(book_id, student_id, std_cur_dt, self.expiry_datetime(), 0)
+                issued_book_controller.issue_book(issued_book)
+                books_controller.update_book_status(book_id,"issued")
+                showinfo(title="Issued",message=f"Book issued successfully to {student_id}")
             else:
                 showerror(title="Not Available",message="This book is not available or it is issued to another one.")
         else:
             showerror(title="Not Found",message="Book not found! or Student Not found! Please Check Book ID or Student ID and try again...")
         
     def all_book_id(self):
-        all_bookID = db.all_book_id()
+        all_bookID = books_controller.all_book_id()
         return all_bookID
     
     def all_student_id(self):
-        all_studentID = db.all_student_id()
+        all_studentID = students_controller.all_student_id()
         return all_studentID
     
     def expiry_datetime(self):

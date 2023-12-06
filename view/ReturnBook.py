@@ -1,9 +1,20 @@
 import customtkinter
-from database import LMS
 from tkinter.messagebox import showerror, showinfo, askyesno
 import datetime
 
-db = LMS()
+# models
+from models.FineDetails import FineDetails
+
+# controllers
+from controllers.IssuedBookController import IssuedBookController
+from controllers.StudentController import StudentController
+from controllers.BookController import BookController
+from controllers.FineDetailsController import FineDetailsController
+
+issued_book_controller = IssuedBookController("assets/data/issued_book.csv")
+students_controller = StudentController("assets/data/students.csv")
+books_controller = BookController("assets/data/books.csv")
+fine_details_controller = FineDetailsController("assets/data/fine_details.csv")
 
 class ReturnBook(customtkinter.CTkToplevel):
     def __init__(self, master=None):
@@ -12,7 +23,7 @@ class ReturnBook(customtkinter.CTkToplevel):
         self.minsize(400,250)
         self.maxsize(400,250)
         self.geometry('400x250')
-        # self.charge_per_day = settings["charge_per_day"]
+        self.charge_per_day = 5
         
         heading_frame = customtkinter.CTkFrame(master=self,corner_radius=10)
         heading_frame.pack(padx=10,pady=10, ipadx=20, ipady=5,fill="x",anchor="n")
@@ -39,22 +50,21 @@ class ReturnBook(customtkinter.CTkToplevel):
         
         if book_id in self.all_book_id():
             status = 'issued'
-            if status in db.select_book_status(book_id):
-                book_detl = db.select_issued_book_det(book_id)
-                
-                std_exp_dt = datetime.datetime.strptime(book_detl[2], "%Y-%m-%d %H:%M:%S")
+            if status in books_controller.select_book_status(book_id):
+                book_detl = issued_book_controller.select_issued_book_det(book_id)
+                std_exp_dt = datetime.datetime.strptime(book_detl.expired_on, "%Y-%m-%d %H:%M:%S")
                 if std_exp_dt < datetime.datetime.now():
                     fine = self.total_fine(std_exp_dt)
                     conf = askyesno(title="Fine Confirmation",message=f"Student is fined, {fine[0]} for {fine[1]} days extra. Is Student submitted fine?")
                     if conf:
-                        self.save_fine_details(book_detl[0],book_detl[1],book_detl[2],fine)
+                        self.save_fine_details(book_detl.book_id,book_detl.issued_to,book_detl.issued_on,fine)
                         self.return_book_func(book_id)
                     else:
                         misl_conf = askyesno(title="Miscellaneous", message="Do you want to put this book in Miscellaneous type?")
                         if misl_conf:
                             try:
-                                db.update_book_status(book_id,'miscellaneous')
-                                db.move_to_miscellaneous(book_id)
+                                books_controller.update_book_status(book_id,'miscellaneous')
+                                issued_book_controller.move_to_miscellaneous(book_id)
                                 showinfo(title='Success',message='Successfully moved in miscellaneous section.')
                             except:
                                 showerror(title='Server Error',message='Something went wrong. Try Again!')
@@ -69,18 +79,13 @@ class ReturnBook(customtkinter.CTkToplevel):
             showerror(title="Not Found", message="No any book with given id.")
     
     def all_book_id(self):
-        all_bookID = []
-        for i in db.all_book_id():
-            all_bookID.append(i[0])
+        all_bookID = books_controller.all_book_id()
         return all_bookID
     
     def return_book_func(self,book_id):
-        res1 = db.return_book(book_id)
-        res2 = db.update_book_status(book_id,"available")
-        if res1 == "returned":
-            showinfo(title="Book Returned",message=f"Book ID - {book_id}, returned to library successfully!")
-        else:
-            showerror(title="ERROR",message="Something went wrong! Try Again....")
+        issued_book_controller.return_book(book_id)
+        books_controller.update_book_status(book_id,"available")
+        showinfo(title="Book Returned",message=f"Book ID: {book_id}, returned to library successfully!")
     
     def total_fine(self,exp_dt):
         delta = datetime.datetime.now() - exp_dt
@@ -90,7 +95,7 @@ class ReturnBook(customtkinter.CTkToplevel):
     def save_fine_details(self,book_id,student_id,issued_dt,fine):
         dt = datetime.datetime.now()
         std_dt = dt.isoformat(' ', 'seconds')
-        data = (
+        fine_details = FineDetails(
             book_id,
             student_id,
             issued_dt,
@@ -98,5 +103,5 @@ class ReturnBook(customtkinter.CTkToplevel):
             fine[0],
             fine[1]
         )
-        res = db.save_fine_detail(data)
+        fine_details_controller.save_fine_detail(fine_details)
     

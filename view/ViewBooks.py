@@ -5,7 +5,7 @@ from controllers.BookController import BookController
 from tkinter.messagebox import showinfo
 import datetime
 
-controller = BookController("assets/data/books.txt")
+controller = BookController("assets/data/books.csv")
 
 
 class ViewBooks(customtkinter.CTkToplevel):

@@ -1,15 +1,22 @@
 import customtkinter
 from tkinter import filedialog
-
+from tkinter.messagebox import showerror, showwarning, showinfo
 
 from view.AddBook  import AddBook
 from view.DeleteBook import DeleteBook
 from view.ViewBooks import ViewBooks
 from view.EditBook import EditBook
-# from view import ReturnBook
+from view.IssueBook import IssueBook
+from view.ReturnBook import ReturnBook
+
+# controllers
+from controllers.StudentController import StudentController
+
+controller = StudentController("assets/data/students.csv")
 
 class LMSApp(customtkinter.CTk):
     def __init__(self):
+
         super().__init__()
         self.title("Library Management System")
         self.minsize(600,430)
@@ -83,8 +90,8 @@ class LMSApp(customtkinter.CTk):
                 ('exel files', '*.xlsx'),
             )
             file = filedialog.askopenfilename(title="Import Students",filetypes=filetypes)
-            res = db.add_new_student(file)
-            if res != None:
+            res = controller.add_new_student(file)
+            if res:
                 showinfo(title="Success",message="Students imported successfully")
             else:
                 showerror(title="Error",message="Something went wrong. Try Again!")

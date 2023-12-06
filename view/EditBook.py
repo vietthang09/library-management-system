@@ -4,7 +4,7 @@ from tkinter.messagebox import showerror, showwarning, showinfo
 from tkcalendar import DateEntry
 from models.Book import Book
 
-controller = BookController("assets/data/books.txt")
+controller = BookController("assets/data/books.csv")
 
 class EditBook(customtkinter.CTkToplevel):
     def __init__(self, master=None):
@@ -85,7 +85,6 @@ class EditBook(customtkinter.CTkToplevel):
     
     def search_book_detail(self):
         book_id = self.book_id_input1.get()
-        book_id = int(book_id)
         global book_details
         book_details = controller.select_book_detail(book_id)
         if book_details != None:
@@ -118,7 +117,7 @@ class EditBook(customtkinter.CTkToplevel):
                 book_details.status
             )
             
-            res = controller.update_book_details(book_id, updated_book)
+            res = controller.update_book_details(updated_book)
             if res != None or res != '':
                 showinfo(title="Saved",message="Book updated successfully.")
             else:
