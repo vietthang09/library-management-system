@@ -8,6 +8,8 @@ from view.ViewBooks import ViewBooks
 from view.EditBook import EditBook
 from view.IssueBook import IssueBook
 from view.ReturnBook import ReturnBook
+from view.BookReport import BookReport
+from view.Miscellaneous import Miscellaneous
 
 # controllers
 from controllers.StudentController import StudentController
@@ -53,6 +55,12 @@ class LMSApp(customtkinter.CTk):
         
         button_5 = customtkinter.CTkButton(master=right_frame,text="Return Book",corner_radius=3, command=self.return_book_win)
         button_5.pack(padx=20, pady=10)
+
+        button_6 = customtkinter.CTkButton(master=right_frame,text="Report",corner_radius=3, command=self.book_report_win)
+        button_6.pack(padx=20, pady=10)
+
+        button_7 = customtkinter.CTkButton(master=right_frame,text="Miscellaneous",corner_radius=3, command=self.miscellaneous_case_win)
+        button_7.pack(padx=20, pady=10)
                         
         button_8 = customtkinter.CTkButton(master=left_frame,text="Edit Book",corner_radius=3, command=self.edit_book_win)
         button_8.pack(padx=20, pady=10)
@@ -82,6 +90,14 @@ class LMSApp(customtkinter.CTk):
     
     def return_book_win(self):
         app = ReturnBook(self)
+        app.focus()
+
+    def book_report_win(self):
+        app = BookReport(self)
+        app.focus()
+    
+    def miscellaneous_case_win(self):
+        app = Miscellaneous(self)
         app.focus()
     
     def import_student(self):

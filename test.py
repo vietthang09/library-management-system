@@ -1,4 +1,4 @@
 
-from controllers.IssuedBookController import IssuedBookController
-controller = IssuedBookController("assets/data/issued_book.csv")
-print(controller.select_issued_book_det(1))
+from controllers.BookController import BookController
+controller = BookController("assets/data/books.csv")
+controller.miscellaneous_books()

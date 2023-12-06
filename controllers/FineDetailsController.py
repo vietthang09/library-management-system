@@ -17,3 +17,7 @@ class FineDetailsController:
         }
         df = pd.DataFrame(data)
         df.to_csv(self.file_path, mode='a', index=False, header=False)
+    
+    def fine_detail(self):
+        df = pd.read_csv(self.file_path)
+        return df

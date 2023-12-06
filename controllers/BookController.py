@@ -72,6 +72,38 @@ class BookController:
         df = pd.read_csv(self.file_path)
         df.loc[df["book_id"] == book_id, "status"] = status
         df.to_csv(self.file_path, index=False)
+
+    def all_available_book(self):
+        df = pd.read_csv(self.file_path)
+        available_books = df[df["status"] == "available"]
+        return available_books
+
+    def all_issued_book(self):
+        df = pd.read_csv(self.file_path)
+        issued_books = df[df["status"] == "issued"]
+        return issued_books
+    
+    def all_books(self):
+        df = pd.read_csv(self.file_path)
+        books = df[df["status"] == "issued" or "available"]
+        return books
+    
+    def miscellaneous_books(self):
+        books = []
+        df = pd.read_csv(self.file_path)
+        miscellaneous_books = df[df["status"] == "miscellaneous"].values
+        for book in miscellaneous_books:
+            book_id = book[0]
+            title = book[1]
+            author = book[2]
+            edition = book[3]
+            price = book[4]
+            purchase_date = book[5]
+            status = book[6]
+            _book = Book(book_id, title, author, edition, price, purchase_date, status)
+            books.append(_book)
+        return books
+        
     
     
 
