@@ -40,3 +40,8 @@ class IssuedBookController:
         df = pd.read_csv(self.file_path)
         df.loc[df["book_id"] == book_id, "is_miscellaneous"] = 1
         df.to_csv(self.file_path, index=False)
+
+    def print_issued_books(self):
+        issued_books = pd.read_csv(self.file_path)
+        return issued_books
+

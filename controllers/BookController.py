@@ -83,6 +83,12 @@ class BookController:
         issued_books = df[df["status"] == "issued"]
         return issued_books
     
+    def all_status_book(self):
+        df = pd.read_csv(self.file_path)
+        all_status = df["status"]
+        return all_status
+
+    
     def all_books(self):
         df = pd.read_csv(self.file_path)
         books = df[df["status"] == "issued" or "available"]

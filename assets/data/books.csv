@@ -1,10 +1,10 @@
 book_id,title,author,edition,price,purchase_date,status
-1,The Lord of the Rings,J. R. R. Tolkien,50th Anniversary Edition,"750,000",10/12/2023,available
-2,The Hitchhiker's Guide to the Galaxy,Douglas Adams,42nd Edition,"350,000",8/1/2023,miscellaneous
-3,The Martian,Andy Weir,10th Anniversary Edition,"420,000",7/15/2023,available
-4,Dune,Frank Herbert,New Millennium Edition,"500,000",6/23/2023,available
-5,To Kill a Mockingbird,Harper Lee,55th Anniversary Edition,"400,000",5/4/2023,available
-6,The Book Thief,Markus Zusak,20th Anniversary Edition,"480,000",4/18/2023,available
+1,The Lord of the Rings,J. R. R. Tolkien,50th Anniversary Edition,"750,000",10/12/2023,miscellaneous
+2,The Hitchhiker's Guide to the Galaxy,Douglas Adams,42nd Edition,"350,000",8/1/2023,issued
+3,The Martian,Andy Weir,10th Anniversary Edition,"420,000",7/15/2023,issued
+4,Dune,Frank Herbert,New Millennium Edition,"500,000",6/23/2023,issued
+5,To Kill a Mockingbird,Harper Lee,55th Anniversary Edition,"400,000",5/4/2023,issued
+6,The Book Thief,Markus Zusak,20th Anniversary Edition,"480,000",4/18/2023,issued
 7,Nineteen Eighty-Four,George Orwell,Diamond Edition,"320,000",3/11/2023,available
 8,Animal Farm,George Orwell,75th Anniversary Edition,"300,000",2/7/2023,available
 9,The Great Gatsby,F. Scott Fitzgerald,90th Anniversary Edition,"450,000",1/15/2023,available
