@@ -30,7 +30,7 @@ class DeleteBook(customtkinter.CTkToplevel):
     
     def delete_book(self):
         id_lists = controller.all_book_id()
-        if str(self.book_id_input.get()) in id_lists:
+        if int(self.book_id_input.get()) in id_lists:
             controller.delete_book(int(self.book_id_input.get()))
             showinfo(title="Deleted",message=f"Book ID : {self.book_id_input.get()}, deleted successfully.")
         else:

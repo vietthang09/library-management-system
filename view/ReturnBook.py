@@ -23,7 +23,7 @@ class ReturnBook(customtkinter.CTkToplevel):
         self.minsize(400,250)
         self.maxsize(400,250)
         self.geometry('400x250')
-        self.charge_per_day = 5
+        self.charge_per_day = 5000
         
         heading_frame = customtkinter.CTkFrame(master=self,corner_radius=10)
         heading_frame.pack(padx=10,pady=10, ipadx=20, ipady=5,fill="x",anchor="n")
@@ -55,7 +55,7 @@ class ReturnBook(customtkinter.CTkToplevel):
                 std_exp_dt = datetime.datetime.strptime(book_detl.expired_on, "%Y-%m-%d %H:%M:%S")
                 if std_exp_dt < datetime.datetime.now():
                     fine = self.total_fine(std_exp_dt)
-                    conf = askyesno(title="Fine Confirmation",message=f"Student is fined, {fine[0]} for {fine[1]} days extra. Is Student submitted fine?")
+                    conf = askyesno(title="Fine Confirmation",message=f"Student is fined, {fine[0]} VNĐ for {fine[1]} days extra. Is Student submitted fine?")
                     if conf:
                         self.save_fine_details(book_detl.book_id,book_detl.issued_to,book_detl.issued_on,fine)
                         self.return_book_func(book_id)

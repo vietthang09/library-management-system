@@ -1,3 +1,21 @@
 book_id,title,author,edition,price,purchase_date,status
-1,afsd,sdfsdg,sdgdsfgd,gdfgfd,12/5/23,available
-2,asfs,vvvv,vvvv,gdfgfd,12/5/23,available
+1,The Lord of the Rings,J. R. R. Tolkien,50th Anniversary Edition,"750,000",10/12/2023,available
+2,The Hitchhiker's Guide to the Galaxy,Douglas Adams,42nd Edition,"350,000",8/1/2023,miscellaneous
+3,The Martian,Andy Weir,10th Anniversary Edition,"420,000",7/15/2023,available
+4,Dune,Frank Herbert,New Millennium Edition,"500,000",6/23/2023,available
+5,To Kill a Mockingbird,Harper Lee,55th Anniversary Edition,"400,000",5/4/2023,available
+6,The Book Thief,Markus Zusak,20th Anniversary Edition,"480,000",4/18/2023,available
+7,Nineteen Eighty-Four,George Orwell,Diamond Edition,"320,000",3/11/2023,available
+8,Animal Farm,George Orwell,75th Anniversary Edition,"300,000",2/7/2023,available
+9,The Great Gatsby,F. Scott Fitzgerald,90th Anniversary Edition,"450,000",1/15/2023,available
+10,Jane Eyre,Charlotte Bront,175th Anniversary Edition,"380,000",12/25/2022,available
+11,The Catcher in the Rye,J. D. Salinger,70th Anniversary Edition,"350,000",11/8/2022,available
+12,1984,George Orwell,Everyman's Library Edition,"250,000",10/20/2022,available
+13,Tess of the d'Urbervilles,Thomas Hardy,Oxford World's Classics Edition,"300,000",9/27/2022,available
+14,The Picture of Dorian Gray,Oscar Wilde,Penguin Classics Edition,"280,000",8/19/2022,available
+15,Frankenstein,Mary Shelley,Norton Critical Edition,"320,000",7/31/2022,available
+16,The Adventures of Huckleberry Finn,Mark Twain,Oxford World's Classics Edition,"270,000",6/24/2022,available
+17,The Scarlet Letter,Nathaniel Hawthorne,Penguin Classics Edition,"250,000",5/15/2022,available
+18,The Awakening,Kate Chopin,Dover Thrift Editions Edition,"200,000",4/28/2022,available
+19,Wuthering Heights,Emily Bront,Everyman's Library Edition,"300,000",3/21/2022,available
+20,Sense and Sensibility,Jane Austen,Penguin Classics Edition,"220,000",2/4/2022,available

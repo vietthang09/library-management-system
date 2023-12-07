@@ -85,6 +85,7 @@ class EditBook(customtkinter.CTkToplevel):
     
     def search_book_detail(self):
         book_id = self.book_id_input1.get()
+        book_id = int(book_id)
         global book_details
         book_details = controller.select_book_detail(book_id)
         if book_details != None:
@@ -101,6 +102,7 @@ class EditBook(customtkinter.CTkToplevel):
     
     def update_book(self):
         book_id = self.id_var.get()
+        book_id = int(book_id)
         book_nme = self.name_var.get()
         book_author = self.author_var.get()
         book_edition = self.edition_var.get()
